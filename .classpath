@@ -5,10 +5,10 @@
 	<classpathentry kind="lib" path="lib/bayeux-api-2.4.2.jar" sourcepath="/home/cjucovschi/.m2/repository/org/cometd/java/bayeux-api/2.4.2/bayeux-api-2.4.2-sources.jar"/>
 	<classpathentry kind="lib" path="lib/cometd-java-client-2.4.2.jar"/>
 	<classpathentry kind="lib" path="lib/cometd-java-common-2.4.2.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-all-8.0.4.v20111024-sources.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-all-8.0.4.v20111024.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.6.4.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-simple-1.6.4.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-all-8.1.4.v20120524.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-all-8.1.4.v20120524-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

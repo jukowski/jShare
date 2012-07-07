@@ -1,6 +1,5 @@
 package jshare;
 
-import jshare.types.IDocType;
 import jshare.types.ISnapshot;
 
 public class DocMetadata implements IDocMetadata {
@@ -10,7 +9,6 @@ public class DocMetadata implements IDocMetadata {
 	boolean create;
 	
 	public DocMetadata() {
-		
 	}
 	
 	public DocMetadata setCreate(boolean create) {
@@ -25,7 +23,6 @@ public class DocMetadata implements IDocMetadata {
 	
 	@Override
 	public Integer getVersion() {
-		// TODO Auto-generated method stub
 		return version;
 	}
 
@@ -35,14 +32,13 @@ public class DocMetadata implements IDocMetadata {
 	}
 
 	@Override
-	public IDocType getDocType() {
-		return null;
+	public String getDocType() {
+		return type;
 	}
 
 	@Override
 	public boolean getCreate() {
-		// TODO Auto-generated method stub
-		return false;
+		return create;
 	}
 
 }

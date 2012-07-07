@@ -6,7 +6,7 @@ import jshare.types.ISnapshot;
 public interface IDocMetadata {
 	Integer getVersion();
 	ISnapshot getSnapshot();
-	IDocType getDocType();
+	String getDocType();
 	boolean getCreate();
 	
 }

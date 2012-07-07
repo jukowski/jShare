@@ -111,8 +111,4 @@ public class Connection {
 	public String getId() {
 		return id;
 	}
-
-	public static void main(String[] args) {
-		new Connection("http://localhost:8000");
-	}
 }

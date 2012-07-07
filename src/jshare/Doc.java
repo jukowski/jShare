@@ -49,7 +49,7 @@ public class Doc {
 		if (request != null) {
 			version = request.getVersion();
 			snapshot = request.getSnapshot();
-			type = request.getDocType();
+			type = TypeFactory.getInstance(request.getDocType());
 			_create = request.getCreate();
 		}
 		this.state = "closed";
