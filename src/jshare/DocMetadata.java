@@ -7,8 +7,13 @@ public class DocMetadata implements IDocMetadata {
 	Integer version;
 	String type;
 	boolean create;
+	ISnapshot snapshot;
 	
 	public DocMetadata() {
+	}
+	
+	public void setSnapshot(ISnapshot snapshot) {
+		this.snapshot = snapshot;
 	}
 	
 	public DocMetadata setCreate(boolean create) {
@@ -28,7 +33,7 @@ public class DocMetadata implements IDocMetadata {
 
 	@Override
 	public ISnapshot getSnapshot() {
-		return null;
+		return snapshot;
 	}
 
 	@Override

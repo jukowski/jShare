@@ -6,6 +6,7 @@ import java.util.Map;
 import jshare.types.ICallBack;
 import jshare.types.IMessage;
 
+import org.cometd.bayeux.Channel;
 import org.cometd.bayeux.Message;
 import org.cometd.bayeux.client.ClientSessionChannel;
 import org.cometd.client.BayeuxClient;
@@ -28,9 +29,19 @@ public class Connection {
 		return state;
 	}
 
+	private class HandshakeHandler implements ClientSessionChannel.MessageListener {
+
+		@Override
+		public void onMessage(ClientSessionChannel channel, Message message) {
+			//System.out.println("starting to listen to /client/"+client.getId());
+//			client.getChannel("/client/"+client.getId()).addListener(new MessageHandler());
+		}
+	}
+	
 	private class MessageHandler implements ClientSessionChannel.MessageListener {
 		@Override
 		public void onMessage(ClientSessionChannel channel, Message message) {
+			System.out.println(message.getChannel()+" : Message "+message);
 			if (message.containsKey("auth")) {
 				state = "ok";
 				id = (String) message.get("auth");
@@ -50,7 +61,7 @@ public class Connection {
 			if (docs.containsKey(docName))
 				docs.get(docName)._onMessage(msg);
 			else
-				error("Unhandled message"+msg.serialize());
+				error("Unhandled message"+message+" "+msg.serialize());
 
 		}
 	}
@@ -79,12 +90,25 @@ public class Connection {
 		ClientTransport transport = LongPollingTransport.create(options, httpClient);
 
 		client = new BayeuxClient(host, transport);
+		client.getChannel(Channel.META_HANDSHAKE).addListener(new HandshakeHandler());
+
 		client.handshake();
 		client.getChannel("/**").addListener(new MessageHandler());
-		client.waitFor(100, State.DISCONNECTED);
-		System.out.println(client.getId());
+		open("test2", "etherpad", new ICallBack() {
+
+			@Override
+			public void emit(Object... data) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		client.waitFor(100, State.CONNECTED);
 	}
 
+	public void waitFor(int milis, State state) {
+		client.waitFor(milis, state);
+	}
+	
 	public Doc open(String docName, String type, ICallBack callback) {
 		if (!client.isConnected()) {
 			callback.emit("error", "connection closed");
@@ -104,8 +128,9 @@ public class Connection {
 	}
 
 	void send(IMessage msg) {
-		System.out.println("sending "+msg.serialize());
-		client.getChannel("/pad").publish(msg.serialize());
+		Map<String, Object> serialized = msg.serialize();
+		serialized.put("clientId", client.getId());
+		client.getChannel("/server").publish(serialized);
 	}
 
 	public String getId() {
